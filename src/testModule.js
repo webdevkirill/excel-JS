@@ -1,1 +1,5 @@
-export const str = 'hello world';
+async function start() {
+    await Promice.resolve()
+}
+
+start()
