@@ -1,5 +1,5 @@
 async function start() {
-    await Promice.resolve()
+    await new Promice
 }
 
 start()
