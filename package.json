@@ -1,0 +1,30 @@
+{
+  "name": "excel-js",
+  "version": "1.0.0",
+  "description": "JavaScript excel copy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdevkirill/excel-JS.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "excel"
+  ],
+  "author": "Kirill Fedorov <krill.fyodorov@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webdevkirill/excel-JS/issues"
+  },
+  "homepage": "https://github.com/webdevkirill/excel-JS#readme",
+  "devDependencies": {
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0"
+  }
+}
