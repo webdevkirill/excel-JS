@@ -17,6 +17,7 @@
             display: flex
             align-items: center
             justify-content: center
+            position: relative
             min-width: $info-cell-width
             height: 100%
             border: 1px solid $border-color
@@ -24,10 +25,23 @@
             border-top: none
         &-data
             display: flex
+        &-resize
+            position: absolute
+            right: 0
+            left: 0
+            bottom: 0
+            height: 4px
+            background: $primary-color
+            opacity: 0
+            transition: all 0.2s
+            &:hover
+                opacity: 1
+                cursor: row-resize
     .column
         display: flex
         align-items: center
         justify-content: center
+        position: relative
         background: #f8f9fa
         min-width: 40px
         width: $cell-width
@@ -35,6 +49,19 @@
         border: 1px solid $border-color
         border-top: none
         border-left: 0
+        &-resize
+            position: absolute
+            top: 0
+            right: 0
+            bottom: 0
+            width: 4px
+            background: $primary-color
+            opacity: 0
+            transition: all 0.2s
+            &:hover
+                opacity: 1
+                cursor: col-resize
+
     .cell
         min-width: 40px
         padding: 5px
@@ -48,5 +75,5 @@
         outline: none
         &.selected
             border: none
-            outline: 2px solid #3c74ff
+            outline: 2px solid $primary-color
             z-index: 2

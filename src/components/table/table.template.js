@@ -5,7 +5,10 @@ const CODES = {
 
 const createCol = (col) => {
     return `
-        <div class="column">${col}</div>
+        <div class="column">
+            ${col}
+            <div class="column-resize"></div>
+        </div>
     `;
 };
 
@@ -16,9 +19,13 @@ const createCell = () => {
 };
 
 const createRow = (content, rowIndex = '') => {
+    const resize = rowIndex ? '<div class="row-resize"></div>' : '';
     return `
         <div class="row">
-            <div class="row-info">${rowIndex}</div>
+            <div class="row-info">
+                ${rowIndex}
+                ${resize}
+            </div>
             <div class="row-data">${content}</div>
         </div>
     `;
