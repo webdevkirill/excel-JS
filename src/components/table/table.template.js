@@ -15,10 +15,10 @@ const createCell = () => {
     `;
 };
 
-const createRow = (content) => {
+const createRow = (content, rowIndex = '') => {
     return `
         <div class="row">
-            <div class="row-info"></div>
+            <div class="row-info">${rowIndex}</div>
             <div class="row-data">${content}</div>
         </div>
     `;
@@ -42,7 +42,7 @@ export const createTable = (rowsCount = 15) => {
             .fill('')
             .map(createCell)
             .join('');
-        rows.push(createRow(cells));
+        rows.push(createRow(cells, i + 1));
     }
 
     return rows.join('');
