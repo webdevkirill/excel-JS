@@ -38,6 +38,23 @@ class DOM {
     off(eventType, callback) {
         this.$el.removeEventListener(eventType, callback);
     }
+
+    closest(selector) {
+        return $(this.$el.closest(selector));
+    }
+
+    getCoords() {
+        return this.$el.getBoundingClientRect();
+    }
+
+    width(width) {
+        if (typeof width === 'number') {
+            this.$el.style.width = width + 'px';
+            return this;
+        } else {
+            return this.$el.style.width;
+        }
+    }
 }
 
 export function $(selector) {

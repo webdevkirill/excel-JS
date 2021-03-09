@@ -5,9 +5,9 @@ const CODES = {
 
 const createCol = (col) => {
     return `
-        <div class="column">
+        <div class="column" data-type="resizable">
             ${col}
-            <div class="column-resize"></div>
+            <div class="column-resize" data-resize="col"></div>
         </div>
     `;
 };
@@ -19,9 +19,9 @@ const createCell = () => {
 };
 
 const createRow = (content, rowIndex = '') => {
-    const resize = rowIndex ? '<div class="row-resize"></div>' : '';
+    const resize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
     return `
-        <div class="row">
+        <div class="row" data-type="resizable">
             <div class="row-info">
                 ${rowIndex}
                 ${resize}
