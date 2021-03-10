@@ -21,10 +21,12 @@ export class Table extends ExcelComponent {
             const $resizer = $(event.target);
             const $parent = $resizer.closest('[data-type="resizable"]');
             const coords = $parent.getCoords();
+            const cells = this.$root.findAll(`.cell[data-col="${$parent.data.col}"]`);
 
             document.onmousemove = (e) => {
                 const width = coords.width + (e.pageX - coords.right);
                 $parent.width(width);
+                cells.forEach(el => el.style.width = width + 'px');
             };
 
             document.onmouseup = () => {
