@@ -75,6 +75,17 @@ class DOM {
         this.$el.classList.remove(className);
         return this;
     }
+
+    id(parse) {
+        if (parse) {
+            const [row, col] = this.id().split(':');
+            return {
+                row: +row, 
+                col: +col
+            };
+        }
+        return this.data.id;
+    }
 }
 
 export function $(selector) {

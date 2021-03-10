@@ -2,7 +2,7 @@ import {ExcelComponent} from '../../core/ExcelComponent';
 import {$} from '../../core/dom';
 import {createTable} from './table.template';
 import {resizeHandler} from './table.resize';
-import {shouldResize, isCell} from './table.functions';
+import {shouldResize, isCell, idMatrix} from './table.functions';
 import {TableSelection} from './TableSelection';
 
 export class Table extends ExcelComponent {
@@ -37,7 +37,10 @@ export class Table extends ExcelComponent {
             const $target = $(event.target);
 
             if (event.shiftKey) {
-                this.selection.selectGroup($target);
+                const $cells = idMatrix($target, this.selection.current)
+                    .map(id => this.$root.find(`[data-id="${id}"]`));
+
+                this.selection.selectGroup($cells);
             } else {
                 this.selection.select($target);
             }
