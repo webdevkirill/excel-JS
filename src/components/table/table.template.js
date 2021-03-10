@@ -3,22 +3,29 @@ const CODES = {
     Z: 90
 };
 
-const createCol = (col) => {
+const createCol = (col, index) => {
     return `
-        <div class="column">${col}</div>
+        <div class="column" data-type="resizable" data-col="${index}">
+            ${col}
+            <div class="column-resize" data-resize="col"></div>
+        </div>
     `;
 };
 
-const createCell = () => {
+const createCell = (_, index) => {
     return `
-        <div class="cell contenteditable"></div>
+        <div class="cell contenteditable" data-col="${index}"></div>
     `;
 };
 
 const createRow = (content, rowIndex = '') => {
+    const resize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
     return `
-        <div class="row">
-            <div class="row-info">${rowIndex}</div>
+        <div class="row" data-type="resizable">
+            <div class="row-info">
+                ${rowIndex}
+                ${resize}
+            </div>
             <div class="row-data">${content}</div>
         </div>
     `;
@@ -32,7 +39,7 @@ export const createTable = (rowsCount = 15) => {
 
     const cols = new Array(colsCount)
         .fill('')
-        .map((_, index) => createCol(createChar(index)))
+        .map((_, index) => createCol(createChar(index), index))
         .join('');
 
     rows.push(createRow(cols));
