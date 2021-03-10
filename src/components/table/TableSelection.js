@@ -17,7 +17,9 @@ export class TableSelection {
     select($el) {
         this.clearGroup();
         this.group.push($el);
-        $el.addClass(TableSelection.className);
+        $el
+            .addClass(TableSelection.className)
+            .focus();
         this.current = $el;
     }
 

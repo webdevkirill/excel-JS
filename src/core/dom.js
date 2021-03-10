@@ -86,6 +86,10 @@ class DOM {
         }
         return this.data.id;
     }
+
+    focus() {
+        this.$el.focus();
+    }
 }
 
 export function $(selector) {

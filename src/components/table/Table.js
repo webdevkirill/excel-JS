@@ -2,16 +2,18 @@ import {ExcelComponent} from '../../core/ExcelComponent';
 import {$} from '../../core/dom';
 import {createTable} from './table.template';
 import {resizeHandler} from './table.resize';
-import {shouldResize, isCell, idMatrix} from './table.functions';
+import {shouldResize, isCell, idMatrix, keyNavigationHandlers} from './table.functions';
 import {TableSelection} from './TableSelection';
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';
+    static rowNumber = 20;
+    static colNumber = 26;
 
     constructor($root) {
         super($root, {
             name: 'table',
-            listeners: ['mousedown']
+            listeners: ['mousedown', 'keydown']
         });
     }
 
@@ -27,7 +29,7 @@ export class Table extends ExcelComponent {
     }
     
     toHTML() {
-        return createTable(20);
+        return createTable(Table.rowNumber);
     }
 
     onMousedown(event) {
@@ -44,6 +46,18 @@ export class Table extends ExcelComponent {
             } else {
                 this.selection.select($target);
             }
+        }
+    }
+
+    onKeydown(event) {
+        const {key} = event;
+        const keyNavigation = keyNavigationHandlers(this.selection.current);
+        if (Object.keys(keyNavigation).includes(key) && !event.shiftKey) {
+            event.preventDefault();
+            const {row, col} = keyNavigation[key];
+
+            const $cell = this.$root.find(`[data-id="${row}:${col}"]`);
+            this.selection.select($cell);
         }
     }
 }
