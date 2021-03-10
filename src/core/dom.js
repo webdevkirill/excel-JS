@@ -47,22 +47,11 @@ class DOM {
         return this.$el.getBoundingClientRect();
     }
 
-    width(width) {
-        if (typeof width === 'number') {
-            this.$el.style.width = width + 'px';
-            return this;
-        } else {
-            return this.$el.style.width;
-        }
-    }
-
-    height(height) {
-        if (typeof height === 'number') {
-            this.$el.style.height = height + 'px';
-            return this;
-        } else {
-            return this.$el.style.height;
-        }
+    css(styles = {}) {
+        Object
+            .keys(styles)
+            .forEach(key => this.$el.style[key] = styles[key]);
+        return this;
     }
 
     get data() {

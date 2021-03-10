@@ -26,14 +26,14 @@ export class Table extends ExcelComponent {
                 const cells = this.$root.findAll(`.cell[data-col="${$parent.data.col}"]`);
 
                 document.onmousemove = (e) => {
-                    const width = coords.width + (e.pageX - coords.right);
-                    $parent.width(width);
-                    cells.forEach(el => el.style.width = width + 'px');
+                    const width = (coords.width + (e.pageX - coords.right)) + 'px';
+                    $parent.css({width});
+                    cells.forEach(el => el.style.width = width);
                 };
             } else {
                 document.onmousemove = (e) => {
-                    const height = coords.height + (e.pageY - coords.bottom);
-                    $parent.height(height);
+                    const height = (coords.height + (e.pageY - coords.bottom)) + 'px';
+                    $parent.css({height});
                 };
             }
 
