@@ -56,6 +56,15 @@ class DOM {
         }
     }
 
+    height(height) {
+        if (typeof height === 'number') {
+            this.$el.style.height = height + 'px';
+            return this;
+        } else {
+            return this.$el.style.height;
+        }
+    }
+
     get data() {
         return this.$el.dataset;
     }
