@@ -34,6 +34,10 @@ export class Table extends ExcelComponent {
         this.$on('formula:unfocus', () => {
             this.selection.current.focus();
         });
+
+        this.$subscribe(state => {
+            console.log('tablestate', state);
+        });
     }
     
     toHTML() {
@@ -43,6 +47,7 @@ export class Table extends ExcelComponent {
     selectSell($cell) {
         this.selection.select($cell);
         this.$emit('table:select', $cell);
+        this.$dispatch({type: 'TEST'});
     }
 
     onMousedown(event) {
