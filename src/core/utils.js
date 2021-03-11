@@ -35,3 +35,16 @@ export const toInlineStyles = (styles = {}) => {
         .map(key => `${camelCaseToDashCase(key)}: ${styles[key]}`)
         .join(';') + ';';
 };
+
+export const debounce = (fn, wait) => {
+    let timeout;
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            // eslint-disable-next-line
+            fn.apply(this, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
