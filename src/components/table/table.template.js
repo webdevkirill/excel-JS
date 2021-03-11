@@ -17,7 +17,7 @@ const createCol = (col, index, width) => {
     `;
 };
 
-const getWidth = (state, index) => state[index] || '';
+const getMeasure = (state = {}, index) => state[index] || '';
 
 const createCell = (state, row) => {
     return (_, col) => {
@@ -27,16 +27,21 @@ const createCell = (state, row) => {
                 data-col="${col}" 
                 data-id="${row}:${col}"
                 data-type="cell"
-                style="width: ${getWidth(state.colState, col)}"
+                style="width: ${getMeasure(state.colState, col)}"
             ></div>
         `;
     };
 };
 
-const createRow = (content, rowIndex = '') => {
+const createRow = (content, rowIndex = '', height) => {
     const resize = rowIndex ? '<div class="row-resize" data-resize="row"></div>' : '';
     return `
-        <div class="row" data-type="resizable">
+        <div 
+            class="row" 
+            data-type="resizable" 
+            data-row="${rowIndex}"
+            style="height: ${height}"
+        >
             <div class="row-info">
                 ${rowIndex}
                 ${resize}
@@ -54,17 +59,17 @@ export const createTable = (rowsCount = 15, state = {}) => {
 
     const cols = new Array(colsCount)
         .fill('')
-        .map((_, index) => createCol(createChar(index), index, getWidth(state.colState, index)))
+        .map((_, index) => createCol(createChar(index), index, getMeasure(state.colState, index)))
         .join('');
 
-    rows.push(createRow(cols));
+    rows.push(createRow(cols, '', ''));
 
     for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)
             .fill('')
             .map(createCell(state, row))
             .join('');
-        rows.push(createRow(cells, row + 1));
+        rows.push(createRow(cells, row + 1, getMeasure(state.rowState, row + 1)));
     }
 
     return rows.join('');
