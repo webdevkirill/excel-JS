@@ -6,7 +6,7 @@ const toButton = (button) => {
     `;
     return `
         <div 
-            class="button${button.active ? 'active' : ''}"
+            class="button${button.active ? ' active' : ''}"
             ${meta}
         >
             <i 
@@ -17,7 +17,7 @@ const toButton = (button) => {
     `;
 };
 
-export const createToolbar = () => {
+export const createToolbar = (state) => {
     const buttons = [
         {
             icon: 'format_align_left',
@@ -42,9 +42,9 @@ export const createToolbar = () => {
         },
         {
             icon: 'format_bold',
-            active: false,
+            active: state.fontWeight === 'bold',
             value: {
-                fontWeight: 'bold',
+                fontWeight: state.fontWeight === 'bold' ? 'normal' : 'bold',
             }
         },
         {
