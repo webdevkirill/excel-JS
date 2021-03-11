@@ -1,3 +1,6 @@
+import {defaultStyles} from '../../constans';
+import {camelCaseToDashCase} from '../../core/utils';
+
 const CODES = {
     A: 65,
     Z: 90
@@ -22,13 +25,17 @@ const getMeasure = (state = {}, index) => state[index] || '';
 const createCell = (state, row) => {
     return (_, col) => {
         const storeCellText = state.dataState[`${row}:${col}`] || '';
+        const styles = 
+            Object.keys(defaultStyles)
+                .map(key => `${camelCaseToDashCase(key)}: ${defaultStyles[key]}`)
+                .join(';');
         return `
             <div class="cell" 
                 contenteditable
                 data-col="${col}" 
                 data-id="${row}:${col}"
                 data-type="cell"
-                style="width: ${getMeasure(state.colState, col)}"
+                style="${styles};width: ${getMeasure(state.colState, col)}"
             >
                 ${storeCellText}
             </div>
