@@ -1,5 +1,5 @@
 import {defaultStyles} from '../../constans';
-import {camelCaseToDashCase} from '../../core/utils';
+import {toInlineStyles} from '../../core/utils';
 
 const CODES = {
     A: 65,
@@ -25,17 +25,15 @@ const getMeasure = (state = {}, index) => state[index] || '';
 const createCell = (state, row) => {
     return (_, col) => {
         const storeCellText = state.dataState[`${row}:${col}`] || '';
-        const styles = 
-            Object.keys(defaultStyles)
-                .map(key => `${camelCaseToDashCase(key)}: ${defaultStyles[key]}`)
-                .join(';');
+        const id = `${row}:${col}`;
+        const styles = toInlineStyles({...defaultStyles, ...state.stylesState[id]});
         return `
             <div class="cell" 
                 contenteditable
                 data-col="${col}" 
-                data-id="${row}:${col}"
+                data-id="${id}"
                 data-type="cell"
-                style="${styles};width: ${getMeasure(state.colState, col)}"
+                style="${styles}width: ${getMeasure(state.colState, col)}"
             >
                 ${storeCellText}
             </div>

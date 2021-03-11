@@ -60,7 +60,6 @@ class DOM {
         Object
             .keys(styles)
             .forEach(key => this.$el.style[key] = styles[key]);
-        return this;
     }
 
     getStyles(styles = []) {

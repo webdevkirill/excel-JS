@@ -16,10 +16,10 @@ export class TableSelection {
 
     select($el) {
         this.clearGroup();
-        this.group.push($el);
         $el
             .addClass(TableSelection.className)
             .focus();
+        this.group.push($el);
         this.current = $el;
     }
 
@@ -31,5 +31,9 @@ export class TableSelection {
 
     applyStyle(style) {
         this.group.forEach($el => $el.css(style));
+    }
+
+    get selectedIds() {
+        return this.group.map($el => $el.id());
     }
 }

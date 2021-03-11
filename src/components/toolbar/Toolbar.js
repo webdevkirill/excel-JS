@@ -23,8 +23,8 @@ export class Toolbar extends ExcelStateComponent {
         return createToolbar(this.state);
     }
 
-    storeChanged(state) {
-        this.setState(state.currentStyles);
+    storeChanged(changes) {
+        this.setState(changes.currentStyles);
     }
 
     toHTML() {
