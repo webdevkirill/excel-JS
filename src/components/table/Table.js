@@ -5,7 +5,7 @@ import {resizeHandler} from './table.resize';
 import {shouldResize, isCell, idMatrix, keyNavigationHandlers} from './table.functions';
 import {TableSelection} from './TableSelection';
 import * as actions from '../../redux/actions';
-import {defaultStyles} from '../../constans';
+import {defaultStyles} from '../../constants';
 
 export class Table extends ExcelComponent {
     static className = 'excel__table';

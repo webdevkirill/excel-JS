@@ -1,4 +1,4 @@
-import {defaultStyles} from '../../constans';
+import {defaultStyles} from '../../constants';
 import {toInlineStyles} from '../../core/utils';
 
 const CODES = {
