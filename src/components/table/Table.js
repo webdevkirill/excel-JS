@@ -13,7 +13,7 @@ export class Table extends ExcelComponent {
     constructor($root, options) {
         super($root, {
             name: 'Table',
-            listeners: ['mousedown', 'keydown'],
+            listeners: ['mousedown', 'keydown', 'input'],
             ...options
         });
     }
@@ -25,8 +25,7 @@ export class Table extends ExcelComponent {
     init() {
         super.init();
         
-        const $cell = this.$root.find('[data-id="0:0"]');
-        this.selection.select($cell);
+        this.selectSell(this.$root.find('[data-id="0:0"]'));
 
         this.$on('formula:input', (text) => {
             this.selection.current.text(text);
@@ -41,6 +40,11 @@ export class Table extends ExcelComponent {
         return createTable(Table.rowNumber);
     }
 
+    selectSell($cell) {
+        this.selection.select($cell);
+        this.$emit('table:select', $cell);
+    }
+
     onMousedown(event) {
         if (shouldResize(event)) {
             resizeHandler(this.$root, event);
@@ -53,7 +57,7 @@ export class Table extends ExcelComponent {
 
                 this.selection.selectGroup($cells);
             } else {
-                this.selection.select($target);
+                this.selectSell($target);
             }
         }
     }
@@ -66,7 +70,11 @@ export class Table extends ExcelComponent {
             const {row, col} = keyNavigation[key];
 
             const $cell = this.$root.find(`[data-id="${row}:${col}"]`);
-            this.selection.select($cell);
+            this.selectSell($cell);
         }
+    }
+
+    onInput(event) {
+        this.$emit('table:input', $(event.target));
     }
 }

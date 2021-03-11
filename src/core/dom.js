@@ -19,7 +19,7 @@ class DOM {
             this.$el.textContent = text;
             return this;
         } else {
-            return this.$el.textContent;
+            return this.$el.textContent.trim();
         }
     }
 
