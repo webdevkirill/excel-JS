@@ -3,16 +3,23 @@ const CODES = {
     Z: 90
 };
 
-const createCol = (col, index) => {
+const createCol = (col, index, width) => {
     return `
-        <div class="column" data-type="resizable" data-col="${index}">
+        <div 
+            class="column" 
+            data-type="resizable" 
+            data-col="${index}" 
+            style="width: ${width}"
+        >
             ${col}
             <div class="column-resize" data-resize="col"></div>
         </div>
     `;
 };
 
-const createCell = (row) => {
+const getWidth = (state, index) => state[index] || '';
+
+const createCell = (state, row) => {
     return (_, col) => {
         return `
             <div class="cell" 
@@ -20,6 +27,7 @@ const createCell = (row) => {
                 data-col="${col}" 
                 data-id="${row}:${col}"
                 data-type="cell"
+                style="width: ${getWidth(state.colState, col)}"
             ></div>
         `;
     };
@@ -40,13 +48,13 @@ const createRow = (content, rowIndex = '') => {
 
 const createChar = (index) => String.fromCharCode(CODES.A + index);
 
-export const createTable = (rowsCount = 15) => {
+export const createTable = (rowsCount = 15, state = {}) => {
     const colsCount = CODES.Z - CODES.A + 1;
     const rows = [];
 
     const cols = new Array(colsCount)
         .fill('')
-        .map((_, index) => createCol(createChar(index), index))
+        .map((_, index) => createCol(createChar(index), index, getWidth(state.colState, index)))
         .join('');
 
     rows.push(createRow(cols));
@@ -54,7 +62,7 @@ export const createTable = (rowsCount = 15) => {
     for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)
             .fill('')
-            .map(createCell(row))
+            .map(createCell(state, row))
             .join('');
         rows.push(createRow(cells, row + 1));
     }

@@ -42,7 +42,7 @@ export class Table extends ExcelComponent {
     }
     
     toHTML() {
-        return createTable(Table.rowNumber);
+        return createTable(Table.rowNumber, this.store.getState());
     }
 
     selectSell($cell) {
