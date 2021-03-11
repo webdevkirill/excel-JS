@@ -7,6 +7,7 @@ export class Formula extends ExcelComponent {
         super($root, {
             name: 'Formula',
             listeners: ['input', 'keydown'],
+            subscribe: ['currentText'],
             ...options
         });
     }
@@ -29,15 +30,6 @@ export class Formula extends ExcelComponent {
         this.$on('table:select', $cell => {
             this.$formula.text($cell.text());
         });
-
-        // this.$on('table:input', $cell => {
-        //     this.$formula.text($cell.text());
-        // });
-
-        this.$subscribe(state => {
-            this.$formula.text(state.currentText);
-            console.log('formula state.currentText', state.currentText);
-        });
     }
 
     onKeydown(event) {
@@ -47,5 +39,9 @@ export class Formula extends ExcelComponent {
             event.preventDefault();
             this.$emit('formula:unfocus');
         }
+    }
+
+    storeChanged({currentText}) {
+        this.$formula.text(currentText);
     }
 }

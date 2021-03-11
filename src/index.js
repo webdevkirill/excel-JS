@@ -12,7 +12,6 @@ import {Table} from './components/table/Table';
 const store = createStore(rootReducer, initialState);
 
 store.subscribe(state => {
-    console.log('upState', state);
     storage('excel-state', state);
 });
 

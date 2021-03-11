@@ -16,7 +16,7 @@ export const createStore = (rootReducer, initialState = {}) => {
             listeners.forEach(listener => listener(state));
         },
         getState() {
-            return state;
+            return {...state};
         }
     };
 };
