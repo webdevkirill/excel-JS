@@ -1,6 +1,6 @@
 import {isEqual} from './utils';
 
-export class StoreSubscrider {
+export class StoreSubscriber {
     constructor(store) {
         this.store = store;
         this.sub = null;
@@ -20,8 +20,8 @@ export class StoreSubscrider {
                     });
                 }
             });
+            this.prevState = this.store.getState();
         });
-        this.prevState = this.store.getState();
     }
 
     unsubscribeFromStore() {
