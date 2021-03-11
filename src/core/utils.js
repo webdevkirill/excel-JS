@@ -14,3 +14,9 @@ export const range = (start, end) => {
         .map((_, index) => start + index);
 };
 
+export const storage = (key, data = null) => {
+    if (!data) {
+        return JSON.parse(localStorage.getItem(key));
+    }
+    localStorage.setItem(key, JSON.stringify(data));
+};
