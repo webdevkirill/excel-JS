@@ -14,6 +14,10 @@ class DOM {
         }
     }
 
+    text(text) {
+        this.$el.textContent = text;
+    }
+
     clear() {
         this.html('');
         return this;

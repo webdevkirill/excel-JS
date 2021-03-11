@@ -10,10 +10,11 @@ export class Table extends ExcelComponent {
     static rowNumber = 20;
     static colNumber = 26;
 
-    constructor($root) {
+    constructor($root, options) {
         super($root, {
-            name: 'table',
-            listeners: ['mousedown', 'keydown']
+            name: 'Table',
+            listeners: ['mousedown', 'keydown'],
+            ...options
         });
     }
 
@@ -26,6 +27,10 @@ export class Table extends ExcelComponent {
         
         const $cell = this.$root.find('[data-id="0:0"]');
         this.selection.select($cell);
+
+        this.emitter.subscribe('formula:input', (text) => {
+            this.selection.current.text(text);
+        });
     }
     
     toHTML() {
