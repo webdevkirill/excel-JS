@@ -23,6 +23,15 @@ class DOM {
         }
     }
 
+    inputValue(value) {
+        if (typeof value === 'string') {
+            this.$el.value = value;
+            return this;
+        } else {
+            return this.$el.value.trim();
+        }
+    }
+
     clear() {
         this.html('');
         return this;
