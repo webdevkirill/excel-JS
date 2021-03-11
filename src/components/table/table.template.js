@@ -21,6 +21,7 @@ const getMeasure = (state = {}, index) => state[index] || '';
 
 const createCell = (state, row) => {
     return (_, col) => {
+        const storeCellText = state.dataState[`${row}:${col}`] || '';
         return `
             <div class="cell" 
                 contenteditable
@@ -28,7 +29,9 @@ const createCell = (state, row) => {
                 data-id="${row}:${col}"
                 data-type="cell"
                 style="width: ${getMeasure(state.colState, col)}"
-            ></div>
+            >
+                ${storeCellText}
+            </div>
         `;
     };
 };
