@@ -1,7 +1,11 @@
-const toHtml = () => {
+import {storage} from '../core/utils';
+
+const toHtml = (key) => {
+    const {tableName} = storage(key);
+    const id = +key.split(':')[1];
     return `
         <li class="db__record">
-            <a href="#">Название таблицы</a>
+            <a href="#excel/${id}">${tableName}</a>
             <span>Дата</span>
         </li>
     `;
@@ -28,7 +32,7 @@ export const createRecordsTable = () => {
     return `
         <div class="db__list-header">
             <span>Название</span>
-            <span>Дата открытия</span>
+            <span>Дата создания</span>
         </div>
         <ul class="db__list">
             ${keys.map(toHtml).join('')}
