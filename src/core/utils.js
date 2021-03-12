@@ -14,3 +14,37 @@ export const range = (start, end) => {
         .map((_, index) => start + index);
 };
 
+export const storage = (key, data = null) => {
+    if (!data) {
+        return JSON.parse(localStorage.getItem(key));
+    }
+    localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const isEqual = (a, b) => {
+    if (typeof a === 'object' && typeof b === 'object') {
+        return JSON.stringify(a) === JSON.stringify(b);
+    }
+    return a === b;
+};
+
+export const camelCaseToDashCase = (str) => str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
+
+export const toInlineStyles = (styles = {}) => {
+    return Object.keys(styles)
+        .map(key => `${camelCaseToDashCase(key)}: ${styles[key]}`)
+        .join(';') + ';';
+};
+
+export const debounce = (fn, wait) => {
+    let timeout;
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            // eslint-disable-next-line
+            fn.apply(this, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};

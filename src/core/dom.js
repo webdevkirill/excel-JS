@@ -15,11 +15,20 @@ class DOM {
     }
 
     text(text) {
-        if (typeof text === 'string') {
+        if (typeof text !== 'undefined') {
             this.$el.textContent = text;
             return this;
         } else {
             return this.$el.textContent.trim();
+        }
+    }
+
+    inputValue(value) {
+        if (typeof value === 'string') {
+            this.$el.value = value;
+            return this;
+        } else {
+            return this.$el.value.trim();
         }
     }
 
@@ -60,7 +69,13 @@ class DOM {
         Object
             .keys(styles)
             .forEach(key => this.$el.style[key] = styles[key]);
-        return this;
+    }
+
+    getStyles(styles = []) {
+        return styles.reduce((res, style) => {
+            res[style] = this.$el.style[style];
+            return res;
+        }, {});
     }
 
     get data() {
@@ -98,6 +113,14 @@ class DOM {
 
     focus() {
         this.$el.focus();
+    }
+
+    attr(name, value) {
+        if (typeof value === 'string') {
+            this.$el.setAttribute(name, value);
+            return this;
+        }
+        return this.$el.getAttribute(name);
     }
 }
 
