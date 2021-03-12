@@ -1,12 +1,15 @@
 import {storage} from '../core/utils';
 
 const toHtml = (key) => {
-    const {tableName} = storage(key);
+    const {tableName, lastOpen} = storage(key);
     const id = +key.split(':')[1];
     return `
         <li class="db__record">
             <a href="#excel/${id}">${tableName}</a>
-            <span>Дата</span>
+            <span>
+                ${new Date(+lastOpen).toLocaleDateString()}
+                ${new Date(+lastOpen).toLocaleTimeString()}
+            </span>
         </li>
     `;
 };
@@ -25,17 +28,20 @@ const getAllKeys = () => {
 
 export const createRecordsTable = () => {
     const keys = getAllKeys();
-    console.log(keys);
     if (!keys.length) {
         return `<p>Вы пока не создали ни одной таблицы</p>`;
     }
+    const tableList = keys
+        .sort((a, b) => storage(b).lastOpen - storage(a).lastOpen)
+        .map(toHtml)
+        .join('');
     return `
         <div class="db__list-header">
             <span>Название</span>
-            <span>Дата создания</span>
+            <span>Дата просмотра</span>
         </div>
         <ul class="db__list">
-            ${keys.map(toHtml).join('')}
+            ${tableList}
         </ul>
     `;
 };

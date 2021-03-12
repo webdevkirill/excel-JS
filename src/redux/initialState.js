@@ -8,7 +8,8 @@ const defaultState = {
     stylesState: {},
     currentText: '',
     currentStyles: defaultStyles,
-    tableName: defaultTableName
+    tableName: defaultTableName,
+    lastOpen: ''
 };
 
 const normalize = state => ({
