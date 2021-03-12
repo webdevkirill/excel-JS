@@ -1,5 +1,6 @@
 import {defaultStyles} from '../../constants';
 import {toInlineStyles} from '../../core/utils';
+import {parse} from '../../core/parse';
 
 const CODES = {
     A: 65,
@@ -24,7 +25,7 @@ const getMeasure = (state = {}, index) => state[index] || '';
 
 const createCell = (state, row) => {
     return (_, col) => {
-        const storeCellText = state.dataState[`${row}:${col}`] || '';
+        const data = state.dataState[`${row}:${col}`] || '';
         const id = `${row}:${col}`;
         const styles = toInlineStyles({...defaultStyles, ...state.stylesState[id]});
         return `
@@ -33,9 +34,10 @@ const createCell = (state, row) => {
                 data-col="${col}" 
                 data-id="${id}"
                 data-type="cell"
+                data-value="${data}"
                 style="${styles}width: ${getMeasure(state.colState, col)}"
             >
-                ${storeCellText}
+                ${parse(data)}
             </div>
         `;
     };

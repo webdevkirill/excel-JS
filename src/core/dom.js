@@ -15,7 +15,7 @@ class DOM {
     }
 
     text(text) {
-        if (typeof text === 'string') {
+        if (typeof text !== 'undefined') {
             this.$el.textContent = text;
             return this;
         } else {
@@ -113,6 +113,14 @@ class DOM {
 
     focus() {
         this.$el.focus();
+    }
+
+    attr(name, value) {
+        if (typeof value === 'string') {
+            this.$el.setAttribute(name, value);
+            return this;
+        }
+        return this.$el.getAttribute(name);
     }
 }
 
