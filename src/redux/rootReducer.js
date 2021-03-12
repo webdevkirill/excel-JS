@@ -1,4 +1,4 @@
-import {TABLE_RESIZE, CHANGE_TEXT, CHANGE_STYLES, APPLY_STYLE, CHANGE_TABLE_NAME} from './types';
+import {TABLE_RESIZE, CHANGE_TEXT, CHANGE_STYLES, APPLY_STYLE, CHANGE_TABLE_NAME, CHANGE_LAST_OPEN} from './types';
 
 export const rootReducer = (state, action) => {
     let field;
@@ -29,6 +29,8 @@ export const rootReducer = (state, action) => {
         };
     case CHANGE_TABLE_NAME:
         return {...state, tableName: action.data};
+    case CHANGE_LAST_OPEN: 
+        return {...state, lastOpen: Date.now().toString()};
     default: return state;
     }
 };
